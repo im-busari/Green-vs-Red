@@ -39,7 +39,7 @@ class NextGeneration:
                         new_generation[i][k] = 0
                 else:
                     #   In case we detect a number != 0 or 1, abort task and exit
-                    print("Invalid input")
+                    print("We cannot create another generation...")
                     exit()
 
         return new_generation

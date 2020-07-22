@@ -2,6 +2,7 @@
 Built with Python (+ NumPy).
 
 To run the program write [ python main.py ] in your terminal.
+To run test examples write [ python -m unittest ] in your terminal.
 
 #
 ###Description

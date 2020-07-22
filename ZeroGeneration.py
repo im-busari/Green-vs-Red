@@ -9,25 +9,32 @@ class ZeroGeneration:
         self.__zero_generation = self.create_zero_generation()
 
     def create_zero_generation(self):
-        print("[    Enter string of 0s and 1s   ]")
         zero_list = []
-        for row in range(self.__rows):
-            line = list(int(num) for num in input(f"Row {row + 1}: "))
+        try:
+            for row in range(self.__rows):
+                line = list(int(num) for num in input(f"Row {row + 1}: "))
 
-            # verify that we have the correct number of elements
-            if len(line) != self.__columns:
-                print(f"""ERROR: The number of elements is not equal to the number of columns ({self._columns}). 
-                Please, refresh the program and try again.""")
-                exit()
+                # verify that we have the correct number of elements
+                if len(line) != self.__columns:
+                    raise ValueError(f"The number of elements is not equal to the number of columns ({self.__columns})")
 
-            zero_list.append(line)
+                for num in line:
+                    if num != 0 and num != 1:
+                        raise ValueError(f"You must use only 1s (green) and 0s(red).")
 
-        #   Once done we create a 2D NumPy array with border of 0s, that is going to simplify our
-        #   code when we produce future generations.
-        zero_generation = np.array(zero_list)
-        zero_generation = np.pad(zero_generation, pad_width=1, mode='constant', constant_values=0)
+                zero_list.append(line)
 
-        return zero_generation
+            #   Once done we create a 2D NumPy array with border of 0s, that is going to simplify our
+            #   code when we produce future generations.
+            zero_generation = np.array(zero_list)
+            zero_generation = np.pad(zero_generation, pad_width=1, mode='constant', constant_values=0)
+
+            return zero_generation
+
+        except ValueError as err:
+            print(f"Unexpected ERROR: {err}")
+            print("Please, restart the program.")
+            exit()
 
     @property
     def rows(self):
